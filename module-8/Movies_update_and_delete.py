@@ -3,25 +3,29 @@
 #CSD-310
 #Module 8
 
+import mysql.connector
+from mysql.connector import errorcode
+
+
 def show_films(cursor, title):
     #method to execute an inner join on all tables,
     #   iterate over the dataset and output the results to the terminal window.
 
-    #inner join query
-    cursor.execute ("select film_name as Name, film_director as Director, genre_name as Genre, studio_name as"
-                    "'Studio Name' from film INNER JOIN genre ON film.genre_id = genre.genre_id"
-                    "INNER JOIN studio ON film.studio_id = studio.studio_id")
+    # inner join query
+    cursor.execute("select film_name as Name, film_director as Director, genre_name as Genre, studio_name as "
+                   "'Studio Name' from film INNER JOIN genre ON film.genre_id = genre.genre_id "
+                   "INNER JOIN studio ON film.studio_id = studio.studio_id")
 
-    #get the results from the cursor object
+    # get the results from the cursor object
     films = cursor.fetchall()
 
-    print("/n -- {} --".format(title))
+    print("\n -- {} --".format(title))
 
     #iterate over the film data set and display the results
     for film in films:
             print("Film Name: {}\nDirector: {}\nGenre Name ID: {}\nStudio Name: {}\n".format(film[0], film[1], film[2], film[3]))
 
-    try:
+try:
 
         db = mysql.connector.connect(user = 'root',
                                      password = 'KRis2791!?$$$$',
@@ -50,7 +54,7 @@ def show_films(cursor, title):
         show_films(cursor, "DISPLAYING FILMS AFTER DELETE")
         cursor.close()
 
-    except mysql.connector.Error as err:
+except mysql.connector.Error as err:
         """ on error code """
 
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
@@ -62,7 +66,7 @@ def show_films(cursor, title):
         else:
             print(err)
 
-    finally:
+finally:
         """ close the connection to MySQL """
 
         db.close()
