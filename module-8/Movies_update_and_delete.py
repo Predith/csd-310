@@ -38,7 +38,7 @@ try:
 
         #insert new film
         cursor.execute("INSERT INTO film (film_name, film_releaseDate, film_runtime, film_director, studio_id, genre_id)"
-                       "VALUES ('SPEED', 1994, 156, 'Jan de Bont', 1, 1)")
+                       "VALUES ('SPEED', 1994, 156, 'Jan de Bont', 1, 3)")
         db.commit()
         show_films(cursor, "DISPLAYING FILMS AFTER INSERT")
 
@@ -50,8 +50,10 @@ try:
 
         #delete Gladiator
         cursor.execute("""DELETE FROM film WHERE film_name = 'Gladiator'""")
+
         db.commit()
         show_films(cursor, "DISPLAYING FILMS AFTER DELETE")
+
         cursor.close()
 
 except mysql.connector.Error as err:
